@@ -618,6 +618,207 @@
         padding: 6px 12px;
       }
     }
+
+    /* ─────────────────────────────────────────
+       POPUP MODAL CSS (Added to fix crash)
+    ───────────────────────────────────────── */
+    #popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 22, 40, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #popup-box {
+      background: var(--white);
+      width: 100%;
+      max-width: 440px;
+      border-radius: 20px;
+      padding: 40px 32px 32px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(10, 22, 40, 0.2);
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popOut {
+      0% { opacity: 1; transform: scale(1) translateY(0); }
+      100% { opacity: 0; transform: scale(0.92) translateY(10px); }
+    }
+
+    #popup-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: #88a;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    #popup-close:hover {
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    #popup-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-safe {
+      background: rgba(0, 196, 125, 0.15);
+      color: #00c47d;
+    }
+
+    .ring-unsafe {
+      background: rgba(232, 93, 93, 0.15);
+      color: #e85d5d;
+    }
+
+    .ring-warn {
+      background: rgba(240, 170, 0, 0.15);
+      color: #e6a800;
+    }
+
+    #popup-main-icon {
+      font-size: 2.2rem;
+    }
+
+    #popup-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    #popup-subtitle {
+      font-size: 0.95rem;
+      color: var(--subtle);
+      margin-bottom: 24px;
+    }
+
+    #popup-params {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .pp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #f4fbff;
+      border-radius: 12px;
+      border: 1px solid #d0e4ef;
+    }
+
+    .pp-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--ocean);
+      width: 120px;
+    }
+
+    .pp-val {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      flex: 1;
+      text-align: right;
+    }
+
+    .pp-status {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-left: 12px;
+    }
+
+    .st-ok {
+      background: rgba(0, 196, 125, 0.15);
+      color: #009e65;
+    }
+
+    .st-fail {
+      background: rgba(232, 93, 93, 0.15);
+      color: #c0392b;
+    }
+
+    .popup-tip {
+      font-size: 0.85rem;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: left;
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .tip-safe {
+      background: rgba(0, 196, 125, 0.08);
+      color: #007a4d;
+    }
+
+    .tip-unsafe {
+      background: rgba(232, 93, 93, 0.08);
+      color: #a02020;
+    }
+
+    .popup-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .popup-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-safe {
+      background: #00c47d;
+      box-shadow: 0 4px 15px rgba(0, 196, 125, 0.3);
+    }
+
+    .btn-unsafe {
+      background: #e85d5d;
+      box-shadow: 0 4px 15px rgba(232, 93, 93, 0.3);
+    }
+
+    .btn-warn {
+      background: #f0aa00;
+      box-shadow: 0 4px 15px rgba(240, 170, 0, 0.3);
+    }
   </style>
 </head>
 
