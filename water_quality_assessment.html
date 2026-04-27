@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is your water safe to drink ??</title>
+
+  <!-- Google Fonts: Sora (display) + DM Sans (body) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       CSS VARIABLES — Water-themed color system
+    ───────────────────────────────────────── */
+    :root {
+      --deep: #0a1628;
+      --ocean: #0d3b6e;
+      --mid: #1565a8;
+      --sky: #2196c4;
+      --aqua: #00c9b1;
+      --foam: #b2f0e8;
+      --mist: #e8f8f5;
+      --white: #ffffff;
+      --safe: #00c47d;
+      --unsafe: #e85d5d;
+      --text: #1a2d40;
+      --subtle: #5b7a91;
+      --radius: 14px;
+      --shadow: 0 8px 40px rgba(13, 59, 110, 0.13);
+    }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--mist);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────────
+       ANIMATED BACKGROUND — subtle water waves
+    ───────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 201, 177, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 90% 80%, rgba(21, 101, 168, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(33, 150, 196, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       HEADER / HERO
+    ───────────────────────────────────────── */
+    header {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, var(--deep) 0%, var(--ocean) 55%, var(--sky) 100%);
+      padding: 70px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Decorative circles on hero */
+    header::before,
+    header::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      background: var(--aqua);
+    }
+
+    header::before {
+      width: 420px;
+      height: 420px;
+      top: -120px;
+      left: -80px;
+    }
+
+    header::after {
+      width: 320px;
+      height: 320px;
+      bottom: -120px;
+      right: -60px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(0, 201, 177, 0.18);
+      color: var(--aqua);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(0, 201, 177, 0.30);
+      margin-bottom: 22px;
+    }
+
+    header h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      letter-spacing: -0.02em;
+    }
+
+    header h1 span {
+      color: var(--aqua);
+    }
+
+    header p {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* Animated wave divider */
+    .wave-divider {
+      position: relative;
+      height: 60px;
+      background: transparent;
+      overflow: hidden;
+      margin-top: -2px;
+    }
+
+    .wave-divider svg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* ─────────────────────────────────────────
+       NAV BAR (simple anchor links)
+    ───────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(13, 59, 110, 0.09);
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ocean);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    nav a:hover {
+      background: var(--foam);
+      color: var(--mid);
+    }
+
+    /* ─────────────────────────────────────────
+       MAIN WRAPPER
+    ───────────────────────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION TITLES
+    ───────────────────────────────────────── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 26px;
+      margin-top: 60px;
+    }
+
+    .section-label .icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--sky), var(--aqua));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .section-label h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ocean);
+    }
+
+    /* ─────────────────────────────────────────
+       CARDS
+    ───────────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px 36px;
+      border: 1px solid rgba(13, 59, 110, 0.07);
+    }
+
+    /* ─────────────────────────────────────────
+       INPUT SECTION
+    ───────────────────────────────────────── */
+    #check {
+      scroll-margin-top: 70px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .field-group .hint {
+      font-size: 0.76rem;
+      color: #a0b4c2;
+      margin-top: -4px;
+    }
+
+    .field-group input {
+      border: 1.5px solid #d0e4ef;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      background: #f4fbff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .field-group input:focus {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 3px rgba(33, 150, 196, 0.15);
+      background: var(--white);
+    }
+
+    /* Check button */
+    .btn-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--mid), var(--aqua));
+      color: var(--white);
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 100px;
+      padding: 15px 38px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      box-shadow: 0 4px 20px rgba(21, 101, 168, 0.28);
+    }
+
+    .btn-check:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(21, 101, 168, 0.36);
+    }
+
+    .btn-check:active {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
+
+    .btn-check svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ─────────────────────────────────────────
+       RESULT SECTION
+    ───────────────────────────────────────── */
+    #result-section {
+      display: none;
+      /* hidden until a result exists */
+      margin-top: 28px;
+    }
+
+    .result-card {
+      border-radius: var(--radius);
+      padding: 30px 36px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .result-card.safe {
+      background: linear-gradient(135deg, rgba(0, 196, 125, 0.10), rgba(0, 201, 177, 0.12));
+      border: 1.5px solid rgba(0, 196, 125, 0.30);
+    }
+
+    .result-card.unsafe {
+      background: linear-gradient(135deg, rgba(232, 93, 93, 0.10), rgba(232, 93, 93, 0.06));
+      border: 1.5px solid rgba(232, 93, 93, 0.28);
+    }
+
+    .result-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      flex-shrink: 0;
+    }
+
+    .result-card.safe .result-icon {
+      background: rgba(0, 196, 125, 0.18);
+    }
+
+    .result-card.unsafe .result-icon {
+      background: rgba(232, 93, 93, 0.18);
+    }
+
+    .result-text h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .result-card.safe .result-text h3 {
+      color: #009e65;
+    }
+
+    .result-card.unsafe .result-text h3 {
+      color: var(--unsafe);
+    }
+
+    .result-text p {
+      font-size: 0.95rem;
+      color: var(--subtle);
+      margin-top: 4px;
+    }
+
+    /* Breakdown values */
+    .result-vals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .val-chip {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: rgba(13, 59, 110, 0.07);
+      color: var(--ocean);
+    }
+
+    /* ─────────────────────────────────────────
+       ABOUT SECTION
+    ───────────────────────────────────────── */
+    #about {
+      scroll-margin-top: 70px;
+    }
+
+    .about-text {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: #3a5568;
+    }
+
+    .about-text strong {
+      color: var(--ocean);
+    }
+
+    /* Stat pills */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat-pill {
+      flex: 1;
+      min-width: 130px;
+      background: linear-gradient(135deg, #e8f8f5, #d0eeff);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .stat-pill .num {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ocean);
+    }
+
+    .stat-pill .label {
+      font-size: 0.76rem;
+      color: var(--subtle);
+      margin-top: 4px;
+    }
+
+    /* ─────────────────────────────────────────
+       PARAMETERS SECTION
+    ───────────────────────────────────────── */
+    #parameters {
+      scroll-margin-top: 70px;
+    }
+
+    .param-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .param-card {
+      border-radius: 12px;
+      padding: 26px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .param-card::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      opacity: 0.12;
+    }
+
+    .param-card.ph {
+      background: #e8f0ff;
+      border: 1.5px solid #c0d0f8;
+    }
+
+    .param-card.ph::before {
+      background: #4a70e0;
+    }
+
+    .param-card.tds {
+      background: #fdf4e8;
+      border: 1.5px solid #f0d8a0;
+    }
+
+    .param-card.tds::before {
+      background: #e08c1a;
+    }
+
+    .param-card.turb {
+      background: #edf8f5;
+      border: 1.5px solid #a8e4d8;
+    }
+
+    .param-card.turb::before {
+      background: #00c9b1;
+    }
+
+    .param-emoji {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .param-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .param-card.ph h3 {
+      color: #2a4db5;
+    }
+
+    .param-card.tds h3 {
+      color: #9a5500;
+    }
+
+    .param-card.turb h3 {
+      color: #007d6e;
+    }
+
+    .param-card p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #4a6070;
+    }
+
+    .safe-range {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .param-card.ph .safe-range {
+      background: rgba(74, 112, 224, 0.12);
+      color: #2a4db5;
+    }
+
+    .param-card.tds .safe-range {
+      background: rgba(224, 140, 26, 0.12);
+      color: #7a4200;
+    }
+
+    .param-card.turb .safe-range {
+      background: rgba(0, 201, 177, 0.12);
+      color: #007d6e;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 36px 24px;
+      background: var(--deep);
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.83rem;
+    }
+
+    footer span {
+      color: var(--aqua);
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .card {
+        padding: 24px 20px;
+      }
+
+      .result-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 20px;
+      }
+
+      nav a {
+        font-size: 0.78rem;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════
+       HERO HEADER
+  ══════════════════════════════════════ -->
+  <header>
+    <div class="badge">🎓 Student Project · Environmental AI</div>
+    <h1>AI-Based <span>Water Quality</span> Assessment</h1>
+    <p>
+      Access to clean water is a fundamental human right. This tool uses intelligent
+      rule-based analysis to instantly evaluate whether water meets safe drinking standards.
+    </p>
+  </header>
+
+  <!-- Wavy divider between header and content -->
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#e8f8f5" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       STICKY NAV
+  ══════════════════════════════════════ -->
+  <nav>
+    <a href="#check">🔬 Check Quality</a>
+    <a href="#about">💧 About</a>
+    <a href="#parameters">📊 Parameters</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════ -->
+  <main>
+
+    <!-- ── INPUT SECTION ── -->
+    <section id="check">
+      <div class="section-label">
+        <div class="icon">🔬</div>
+        <h2>Check Water Quality</h2>
+      </div>
+
+      <div class="card">
+        <div class="input-grid">
+
+          <!-- pH Input -->
+          <div class="field-group">
+            <label for="ph">pH Value</label>
+            <span class="hint">Safe range: 6.5 – 8.5</span>
+            <input type="number" id="ph" placeholder="e.g. 7.2" min="0" max="14" step="0.1" />
+          </div>
+
+          <!-- Turbidity Input -->
+          <div class="field-group">
+            <label for="turbidity">Turbidity (NTU)</label>
+            <span class="hint">Safe range: &lt; 5 NTU</span>
+            <input type="number" id="turbidity" placeholder="e.g. 2.5" min="0" step="0.1" />
+          </div>
+
+          <!-- TDS Input -->
+          <div class="field-group">
+            <label for="tds">TDS (mg/L)</label>
+            <span class="hint">Safe range: &lt; 300 mg/L</span>
+            <input type="number" id="tds" placeholder="e.g. 150" min="0" step="1" />
+          </div>
+
+        </div>
+
+        <!-- Assess Button -->
+        <button class="btn-check" onclick="assessWater()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+            <path d="M8 12h4l2-4" />
+          </svg>
+          Check Water Quality
+        </button>
+
+        <!-- Last result preview (shown below button after first check) -->
+        <div id="last-result-preview" style="display:none; margin-top:20px;">
+          <div id="preview-chip" style="display:inline-flex; align-items:center; gap:8px;
+               padding:10px 20px; border-radius:100px; font-size:0.88rem; font-weight:600;
+               cursor:pointer; transition:transform 0.15s;" onclick="reopenPopup()">
+            <span id="preview-icon"></span>
+            <span id="preview-label"></span>
+            <span style="opacity:0.6; font-size:0.8rem;">· Click to view details</span>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- /check -->
+
+
+    <!-- ── ABOUT WATER QUALITY ── -->
+    <section id="about">
+      <div class="section-label">
+        <div class="icon">💧</div>
+        <h2>About Water Quality</h2>
+      </div>
+
+      <div class="card">
+        <p class="about-text">
+          <strong>Water quality</strong> refers to the chemical, physical, and biological
+          characteristics of water, usually with respect to its suitability for a particular
+          purpose — most commonly drinking, irrigation, or industrial use.
+        </p>
+        <p class="about-text" style="margin-top:14px;">
+          Globally, <strong>2 billion people</strong> lack access to safe drinking water.
+          Contaminated water spreads diseases like cholera, typhoid, and dysentery, responsible
+          for hundreds of thousands of deaths annually. Monitoring water quality using data and AI
+          helps communities identify risks early and take preventive action.
+        </p>
+        <p class="about-text" style="margin-top:14px;">
+          Key parameters used to assess water quality include <strong>pH</strong> (acidity/alkalinity),
+          <strong>Turbidity</strong> (cloudiness), and <strong>Total Dissolved Solids (TDS)</strong>
+          — each revealing a different aspect of water health.
+        </p>
+
+        <!-- Quick stats -->
+        <div class="stat-row">
+          <div class="stat-pill">
+            <div class="num">2B+</div>
+            <div class="label">People lack safe water</div>
+          </div>
+          <div class="stat-pill">
+            <div class="num">6.5–8.5</div>
+            <div class="label">Safe pH range (WHO)</div>
+          </div>
+          <div class="stat-pill">
+            <div class="num">&lt;5 NTU</div>
+            <div class="label">Safe turbidity limit</div>
+          </div>
+          <div class="stat-pill">
+            <div class="num">&lt;300</div>
+            <div class="label">Safe TDS (mg/L)</div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /about -->
+
+
+    <!-- ── PARAMETERS SECTION ── -->
+    <section id="parameters">
+      <div class="section-label">
+        <div class="icon">📊</div>
+        <h2>Parameters Explained</h2>
+      </div>
+
+      <div class="param-grid">
+
+        <!-- pH -->
+        <div class="param-card ph">
+          <div class="param-emoji">⚗️</div>
+          <h3>pH Value</h3>
+          <p>
+            pH measures how acidic or alkaline water is on a scale of 0 to 14.
+            A pH of 7 is neutral. Values below 7 are acidic; above 7 are alkaline.
+            Extreme pH levels can corrode pipes and make water taste metallic or bitter.
+          </p>
+          <span class="safe-range">✔ Safe: 6.5 – 8.5</span>
+        </div>
+
+        <!-- TDS -->
+        <div class="param-card tds">
+          <div class="param-emoji">🧂</div>
+          <h3>Total Dissolved Solids (TDS)</h3>
+          <p>
+            TDS measures the total concentration of dissolved substances — minerals,
+            salts, and metals — in water. Low TDS water tastes flat; very high TDS
+            indicates contamination with harmful minerals.
+          </p>
+          <span class="safe-range">✔ Safe: &lt; 300 mg/L</span>
+        </div>
+
+        <!-- Turbidity -->
+        <div class="param-card turb">
+          <div class="param-emoji">🌊</div>
+          <h3>Turbidity</h3>
+          <p>
+            Turbidity measures how cloudy or murky water is, caused by suspended
+            particles like silt, bacteria, algae, or waste. High turbidity blocks
+            sunlight and indicates possible biological contamination.
+          </p>
+          <span class="safe-range">✔ Safe: &lt; 5 NTU</span>
+        </div>
+
+      </div>
+    </section><!-- /parameters -->
+
+  </main><!-- /main -->
+
+
+  <!-- ══════════════════════════════════════
+       POPUP MODAL — Safe / Unsafe Result
+  ══════════════════════════════════════ -->
+  <div id="popup-overlay" onclick="closePopup(event)">
+    <div id="popup-box">
+
+      <!-- Close button -->
+      <button id="popup-close" onclick="closePopup(null)" aria-label="Close">✕</button>
+
+      <!-- Animated icon ring -->
+      <div id="popup-ring">
+        <div id="popup-ripple"></div>
+        <div id="popup-icon-wrap">
+          <span id="popup-main-icon"></span>
+        </div>
+      </div>
+
+      <!-- Title & message -->
+      <h2 id="popup-title"></h2>
+      <p id="popup-subtitle"></p>
+
+      <!-- Parameter breakdown table -->
+      <div id="popup-params">
+        <div class="pp-row" id="pp-ph">
+          <span class="pp-label">⚗️ pH Value</span>
+          <span class="pp-val" id="pp-ph-val"></span>
+          <span class="pp-status" id="pp-ph-st"></span>
+        </div>
+        <div class="pp-row" id="pp-tds">
+          <span class="pp-label">🧂 TDS</span>
+          <span class="pp-val" id="pp-tds-val"></span>
+          <span class="pp-status" id="pp-tds-st"></span>
+        </div>
+        <div class="pp-row" id="pp-turb">
+          <span class="pp-label">🌊 Turbidity</span>
+          <span class="pp-val" id="pp-turb-val"></span>
+          <span class="pp-status" id="pp-turb-st"></span>
+        </div>
+      </div>
+
+      <!-- Recommendation message -->
+      <div id="popup-tip"></div>
+
+      <!-- Close button at bottom -->
+      <button id="popup-btn" onclick="closePopup(null)">Close</button>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    <p>AI-Based Water Quality Assessment &nbsp;|&nbsp; <span>Student Project</span></p>
+    <p style="margin-top:6px;">Built with HTML, CSS &amp; JavaScript &nbsp;·&nbsp; No frameworks used</p>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════
+       JAVASCRIPT — Rule-Based AI Logic + Popup
+  ══════════════════════════════════════ -->
+  <script>
+    // Store last result so popup can be re-opened
+    let lastResult = null;
+
+    /**
+     * assessWater()
+     * Reads input values, applies WHO rule-based logic,
+     * then opens the result popup.
+     */
+    function assessWater() {
+
+      // ── 1. Collect input values ──────────────────────
+      const phVal = parseFloat(document.getElementById('ph').value);
+      const turbidityVal = parseFloat(document.getElementById('turbidity').value);
+      const tdsVal = parseFloat(document.getElementById('tds').value);
+
+      // ── 2. Validate inputs ───────────────────────────
+      if (isNaN(phVal) || isNaN(turbidityVal) || isNaN(tdsVal)) {
+        showValidationPopup('⚠️ Please fill in all three fields before checking.');
+        return;
+      }
+      if (phVal < 0 || phVal > 14) {
+        showValidationPopup('⚠️ pH must be between 0 and 14.');
+        return;
+      }
+
+      // ── 3. Rule-based AI assessment ─────────────────
+      const phOk = phVal >= 6.5 && phVal <= 8.5;
+      const tdsOk = tdsVal < 300;
+      const turbOk = turbidityVal < 5;
+      const isSafe = phOk && tdsOk && turbOk;
+
+      // Store result
+      lastResult = { isSafe, phVal, tdsVal, turbidityVal, phOk, tdsOk, turbOk };
+
+      // ── 4. Open popup ────────────────────────────────
+      openPopup(lastResult);
+
+      // ── 5. Update preview chip below button ─────────
+      const preview = document.getElementById('last-result-preview');
+      const chip = document.getElementById('preview-chip');
+      const pIcon = document.getElementById('preview-icon');
+      const pLabel = document.getElementById('preview-label');
+
+      preview.style.display = 'block';
+      if (isSafe) {
+        chip.style.background = 'rgba(0,196,125,0.12)';
+        chip.style.border = '1.5px solid rgba(0,196,125,0.35)';
+        chip.style.color = '#007a4d';
+        pIcon.textContent = '✅';
+        pLabel.textContent = 'Safe Water';
+      } else {
+        chip.style.background = 'rgba(232,93,93,0.10)';
+        chip.style.border = '1.5px solid rgba(232,93,93,0.35)';
+        chip.style.color = '#b03030';
+        pIcon.textContent = '⚠️';
+        pLabel.textContent = 'Unsafe Water';
+      }
+    }
+
+    /** Re-open the popup from the preview chip */
+    function reopenPopup() {
+      if (lastResult) openPopup(lastResult);
+    }
+
+    /**
+     * openPopup(result)
+     * Fills popup content and animates it in.
+     */
+    function openPopup(r) {
+      const overlay = document.getElementById('popup-overlay');
+      const box = document.getElementById('popup-box');
+      const ring = document.getElementById('popup-ring');
+      const iconWrap = document.getElementById('popup-icon-wrap');
+      const mainIcon = document.getElementById('popup-main-icon');
+      const title = document.getElementById('popup-title');
+      const subtitle = document.getElementById('popup-subtitle');
+      const tip = document.getElementById('popup-tip');
+      const btn = document.getElementById('popup-btn');
+
+      // Reset animation
+      box.style.animation = 'none';
+      box.offsetHeight;
+      box.style.animation = '';
+
+      if (r.isSafe) {
+        // ── SAFE theme ──────────────────────────────
+        overlay.className = 'overlay-safe';
+        ring.className = 'ring-safe';
+        mainIcon.textContent = '💧';
+        title.textContent = 'Safe Water';
+        title.style.color = '#007a4d';
+        subtitle.textContent = 'Water is suitable for drinking.';
+        tip.innerHTML = `
+          <span class="tip-icon">✅</span>
+          All parameters are within WHO safe limits.
+          This water meets drinking water quality standards.
+        `;
+        tip.className = 'popup-tip tip-safe';
+        btn.className = 'popup-btn btn-safe';
+        btn.textContent = '✓ Got it';
+      } else {
+        // ── UNSAFE theme ────────────────────────────
+        const issues = [];
+        if (!r.phOk) issues.push('pH is out of the 6.5–8.5 range');
+        if (!r.tdsOk) issues.push('TDS exceeds 300 mg/L');
+        if (!r.turbOk) issues.push('Turbidity exceeds 5 NTU');
+
+        overlay.className = 'overlay-unsafe';
+        ring.className = 'ring-unsafe';
+        mainIcon.textContent = '☠️';
+        title.textContent = 'Unsafe Water';
+        title.style.color = '#c0392b';
+        subtitle.textContent = 'Water is not safe for drinking.';
+        tip.innerHTML = `
+          <span class="tip-icon">⚠️</span>
+          <strong>Issues found:</strong> ${issues.join('; ')}.
+          Please treat or filter this water before use.
+        `;
+        tip.className = 'popup-tip tip-unsafe';
+        btn.className = 'popup-btn btn-unsafe';
+        btn.textContent = '✕ Close';
+      }
+
+      // Fill parameter rows
+      setParamRow('pp-ph', `${r.phVal}`, 'pH 6.5–8.5', r.phOk);
+      setParamRow('pp-tds', `${r.tdsVal} mg/L`, 'TDS < 300', r.tdsOk);
+      setParamRow('pp-turb', `${r.turbidityVal} NTU`, 'Turb < 5 NTU', r.turbOk);
+
+      // Show overlay
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    /** Helper: fill a parameter row */
+    function setParamRow(id, val, range, ok) {
+      document.getElementById(id + '-val').textContent = val;
+      const st = document.getElementById(id + '-st');
+      st.textContent = ok ? '✔ OK' : '✘ Fail';
+      st.className = 'pp-status ' + (ok ? 'st-ok' : 'st-fail');
+    }
+
+    /** Close the popup */
+    function closePopup(event) {
+      // If clicking overlay background (not the box itself), close
+      if (event && event.target !== document.getElementById('popup-overlay')) return;
+      const overlay = document.getElementById('popup-overlay');
+      const box = document.getElementById('popup-box');
+      box.style.animation = 'popOut 0.25s ease forwards';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 220);
+    }
+
+    /** Simple validation popup using a styled alert alternative */
+    function showValidationPopup(msg) {
+      const overlay = document.getElementById('popup-overlay');
+      overlay.className = '';
+      document.getElementById('popup-ring').className = 'ring-warn';
+      document.getElementById('popup-main-icon').textContent = '⚠️';
+      document.getElementById('popup-title').textContent = 'Missing Data';
+      document.getElementById('popup-title').style.color = '#b07000';
+      document.getElementById('popup-subtitle').textContent = msg;
+      document.getElementById('popup-params').style.display = 'none';
+      document.getElementById('popup-tip').className = '';
+      document.getElementById('popup-tip').innerHTML = '';
+      document.getElementById('popup-btn').className = 'popup-btn btn-warn';
+      document.getElementById('popup-btn').textContent = 'OK, got it';
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      // Restore params display when closed
+      document.getElementById('popup-btn').onclick = () => {
+        document.getElementById('popup-params').style.display = 'flex';
+        document.getElementById('popup-btn').onclick = () => closePopup(null);
+        closePopup(null);
+      };
+    }
+
+    // Allow pressing Enter in any input field to trigger check
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') assessWater();
+      });
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePopup(null);
+    });
+  </script>
+
+</body>
+
+</html>
